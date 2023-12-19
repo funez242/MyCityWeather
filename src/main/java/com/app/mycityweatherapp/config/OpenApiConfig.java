@@ -11,6 +11,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI().info(new Info().title("My City Weather API")
                 .version("0.1")
-                .description("Provee los detalles del clima en tiempo real por ciudad"));
+                .summary("Provee los detalles del clima en tiempo real por ciudad")
+                .description("Microservicio dedicado a consultar detalles del clima, puede consultarse con el nombre de la ciudad," +
+                        "y, opcionalmente, se le puede enviar el código de país, si las fuentes consultadas no están disponibles, " +
+                        "retorna la data mas reciente"));
     }
 }
