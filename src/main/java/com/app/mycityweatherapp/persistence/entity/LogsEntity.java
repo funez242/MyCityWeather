@@ -1,4 +1,4 @@
-package com.app.mycityweatherapp.entities;
+package com.app.mycityweatherapp.persistence.entity;
 
 
 import jakarta.persistence.*;

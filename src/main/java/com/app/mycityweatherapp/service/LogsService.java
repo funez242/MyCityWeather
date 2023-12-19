@@ -1,6 +1,6 @@
 package com.app.mycityweatherapp.service;
 
-import com.app.mycityweatherapp.entities.LogsEntity;
+import com.app.mycityweatherapp.persistence.entity.LogsEntity;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package com.app.mycityweatherapp.repository;
+package com.app.mycityweatherapp.persistence.crud;
 
-import com.app.mycityweatherapp.entities.LogsEntity;
+import com.app.mycityweatherapp.persistence.entity.LogsEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

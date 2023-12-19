@@ -2,7 +2,6 @@ package com.app.mycityweatherapp.controller;
 
 import com.app.mycityweatherapp.datacache.CacheStore;
 import com.app.mycityweatherapp.dto.GetCityWeatherResponse;
-import com.app.mycityweatherapp.dto.OpenWeatherAPIResponse;
 import com.app.mycityweatherapp.service.WeatherService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,7 +23,7 @@ public class WeatherController {
     CacheStore<List<GetCityWeatherResponse>> cacheStore;
 
 
-    public WeatherController(WeatherService weatherService,CacheStore<List<GetCityWeatherResponse>> cacheStore){
+    public WeatherController(WeatherService weatherService, CacheStore<List<GetCityWeatherResponse>> cacheStore){
         this.weatherService = weatherService;
         this.cacheStore = cacheStore;
     }
@@ -32,7 +31,7 @@ public class WeatherController {
     @GetMapping({"/{city}","/{city}/{countrycode}"})
     @Operation(description = "Obtiene los detalles del clima de una ciudad especifica",
                operationId = "getWeatherByCityName")
-    public ResponseEntity<List<GetCityWeatherResponse>> getWeather(
+    public ResponseEntity<List<GetCityWeatherResponse>> getWeatherByCityName(
             @Parameter(name = "city", example = "Guadalajara",required = true) @PathVariable("city") String cityName,
             @Parameter(name ="countrycode", example = "CO para Colombia, MX para México", required = false)
             @PathVariable(value = "countrycode",required = false) String countryCode){
