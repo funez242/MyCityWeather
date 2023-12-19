@@ -1,7 +1,10 @@
 package com.app.mycityweatherapp.service;
 
+import org.springframework.stereotype.Controller;
+
 import java.util.stream.IntStream;
 
+@Controller
 public class MatrixOperationsServiceImpl implements MatrixOperationService{
 
     public int[][] multiply(int[][] matrixA, int [][]matrixB){
