@@ -18,4 +18,6 @@ public class CityDetails implements Serializable {
     private String country;
 
     private String state;
+
+    private String name;
 }

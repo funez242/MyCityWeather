@@ -14,4 +14,6 @@ public class GetCityWeatherResponse {
     private String country;
 
     private String state;
+
+    private String name;
 }
