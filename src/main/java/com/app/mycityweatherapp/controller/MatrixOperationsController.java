@@ -1,5 +1,6 @@
 package com.app.mycityweatherapp.controller;
 
+import com.app.mycityweatherapp.dto.MatricesRequest;
 import com.app.mycityweatherapp.service.MatrixOperationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -7,8 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/matrix")
-@Tag(name = "Matrix Operations",
+@RequestMapping("/matrices")
+@Tag(name = "Matrices Operations",
         description = "API realiza operaciones sobre matrices.")
 public class MatrixOperationsController {
 
@@ -18,12 +19,13 @@ public class MatrixOperationsController {
         this.matrixOperationService = matrixOperationService;
     }
 
-    @PostMapping("/multiply")
+    @PostMapping("/multiplicar")
     @Operation(description = "Realiza la multiplicación de dos matrices",
             operationId = "matrixMultiplying")
     public int[][] matrixMultiplying(
-            @Parameter(name = "matrixA") @RequestBody int[][] matrixA,
-            @Parameter(name = "matrixB") @RequestBody int[][] matrixB){
+            @RequestBody MatricesRequest matricesRequest) {
+        int[][] matrixA = matricesRequest.getMatrix1();
+        int[][] matrixB = matricesRequest.getMatrix2();
         return this.matrixOperationService.multiply(matrixA,matrixB);
     }
 }
