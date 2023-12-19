@@ -1,5 +1,6 @@
 package com.app.mycityweatherapp.controller;
 
+import com.app.mycityweatherapp.datacache.CacheStore;
 import com.app.mycityweatherapp.dto.GetCityWeatherResponse;
 import com.app.mycityweatherapp.dto.OpenWeatherAPIResponse;
 import com.app.mycityweatherapp.service.WeatherService;
@@ -20,8 +21,12 @@ public class WeatherController {
 
     WeatherService weatherService;
 
-    public WeatherController(WeatherService weatherService){
+    CacheStore<List<GetCityWeatherResponse>> cacheStore;
+
+
+    public WeatherController(WeatherService weatherService,CacheStore<List<GetCityWeatherResponse>> cacheStore){
         this.weatherService = weatherService;
+        this.cacheStore = cacheStore;
     }
 
     @GetMapping({"/{city}","/{city}/{countrycode}"})
@@ -31,14 +36,13 @@ public class WeatherController {
             @Parameter(name = "city", example = "Guadalajara",required = true) @PathVariable("city") String cityName,
             @Parameter(name ="countrycode", example = "CO para Colombia, MX para México", required = false)
             @PathVariable(value = "countrycode",required = false) String countryCode){
-        return new ResponseEntity<>(weatherService.getWeatherByCityName(cityName,countryCode), HttpStatus.OK);
+        return new ResponseEntity<>(this.weatherService.getWeatherByCityName(cityName,countryCode), HttpStatus.OK);
     }
 
     @GetMapping("/history")
     @Operation(description = "Obtiene el historial de ciudades consultadas.")
-    public ResponseEntity<String> getHistory(){
-        return ResponseEntity.ok("History");
+    public ResponseEntity<List<List<GetCityWeatherResponse>>> getHistory(){
+        return new ResponseEntity<>(this.weatherService.getHistory(), HttpStatus.OK);
     }
-
 
 }
