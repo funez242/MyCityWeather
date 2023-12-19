@@ -10,8 +10,12 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CityDetails implements Serializable {
     @JsonProperty("lat")
-    String latitude;
+    private String latitude;
 
     @JsonProperty("lon")
-    String longitude;
+    private String longitude;
+
+    private String country;
+
+    private String state;
 }

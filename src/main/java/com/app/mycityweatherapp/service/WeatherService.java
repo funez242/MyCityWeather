@@ -2,6 +2,7 @@ package com.app.mycityweatherapp.service;
 
 import com.app.mycityweatherapp.dto.CityDetails;
 
+import com.app.mycityweatherapp.dto.GetCityWeatherResponse;
 import com.app.mycityweatherapp.dto.OpenWeatherAPIResponse;
 import com.app.mycityweatherapp.util.Constants;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -9,6 +10,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,21 +25,30 @@ public class WeatherService {
     }
 
 
-    public OpenWeatherAPIResponse getWeatherByCityName(String cityName, String countryCode){
+    public List<GetCityWeatherResponse> getWeatherByCityName(String cityName, String countryCode){
         String geoURL = getOpenWeatherGeoUrl(cityName,countryCode);
 
         CityDetails[] geoResponse = this.restTemplate.getForObject(geoURL,CityDetails[].class);
         System.out.println("Ejecuccion geo correcta");
         List<CityDetails> cityDetailsList= Arrays.asList(geoResponse);
 
-        String latitude = cityDetailsList.get(0).getLatitude();
-        String longitude = cityDetailsList.get(0).getLongitude();
+        List<GetCityWeatherResponse> getCityWeatherResponses = new ArrayList<>();
 
-        String weatherURL = getOpenWeatherUrl(latitude,longitude);
-
-        OpenWeatherAPIResponse weatherAPIResponse = this.restTemplate.getForObject(weatherURL, OpenWeatherAPIResponse.class);
-
-        return weatherAPIResponse;
+        for(CityDetails cityDetails:cityDetailsList) {
+            String latitude = cityDetails.getLatitude();
+            String longitude = cityDetails.getLongitude();
+            String state = cityDetails.getState();
+            String country = cityDetails.getCountry();
+            String weatherURL = getOpenWeatherUrl(latitude, longitude);
+            OpenWeatherAPIResponse weatherAPIResponse = this.restTemplate.getForObject(weatherURL, OpenWeatherAPIResponse.class);
+            GetCityWeatherResponse getWeatherResponse = new GetCityWeatherResponse();
+            getWeatherResponse.setWeather(weatherAPIResponse.getWeather());
+            getWeatherResponse.setMain(weatherAPIResponse.getMain());
+            getWeatherResponse.setCountry(country);
+            getWeatherResponse.setState(state);
+            getCityWeatherResponses.add(getWeatherResponse);
+        }
+        return getCityWeatherResponses;
     }
 
 

@@ -14,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenWeatherAPIResponse implements Serializable {
 
-    List<Weather> weather;
+    private List<Weather> weather;
 
-    Main main;
+    private Main main;
 }

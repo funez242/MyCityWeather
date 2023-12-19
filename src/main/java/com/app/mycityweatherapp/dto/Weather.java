@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Weather {
-    String description;
+    private String description;
 }
