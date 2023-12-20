@@ -21,4 +21,10 @@ public class ExceptionHandlerController {
     public ResponseEntity<MessageResponse> handleCityNotFoundException(ServiceUnavailableException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse(e.getMessage()));
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<MessageResponse> handleException(RuntimeException exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new MessageResponse("Error Interno, intente más tarde"));
+    }
 }
